@@ -1,16 +1,19 @@
-package com.GiangTruong.LearningLMS.center.dto.student;
-import lombok.Builder;
+package com.GiangTruong.LearningLMS.center.dto;
+
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
-@Builder
-public class StudentRes {
+public class StudentDTO {
 
     private Long id;
 
     private String name;
 
     private String gender;
+
+    private LocalDate birthDate;
 
     private String phone;
 
@@ -19,4 +22,5 @@ public class StudentRes {
     private String address;
 
     private String status;
+
 }
