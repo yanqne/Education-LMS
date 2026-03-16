@@ -3,37 +3,27 @@ package com.GiangTruong.LearningLMS.center.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "courses")
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     private String name;
 
-    private String gender;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    private LocalDate birthDate;
+    private Integer duration;
 
-    private String phone;
-
-    private String email;
-
-    private String address;
-
-    private String status;
+    private BigDecimal fee;
 
     private LocalDateTime createdAt;
 

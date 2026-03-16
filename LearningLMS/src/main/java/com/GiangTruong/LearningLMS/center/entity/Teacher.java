@@ -1,17 +1,16 @@
 package com.GiangTruong.LearningLMS.center.entity;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "teachers")
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,17 +22,13 @@ public class Student {
 
     private String name;
 
-    private String gender;
-
-    private LocalDate birthDate;
-
     private String phone;
 
     private String email;
 
-    private String address;
+    private String specialty;
 
-    private String status;
+    private BigDecimal salary;
 
     private LocalDateTime createdAt;
 

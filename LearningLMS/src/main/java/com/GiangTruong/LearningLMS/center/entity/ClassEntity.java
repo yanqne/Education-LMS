@@ -10,30 +10,32 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "classes")
+public class ClassEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     private String name;
 
-    private String gender;
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
-    private LocalDate birthDate;
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
-    private String phone;
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
 
-    private String email;
+    private LocalDate startDate;
 
-    private String address;
+    private LocalDate endDate;
 
-    private String status;
+    private Integer maxStudents;
 
     private LocalDateTime createdAt;
 
