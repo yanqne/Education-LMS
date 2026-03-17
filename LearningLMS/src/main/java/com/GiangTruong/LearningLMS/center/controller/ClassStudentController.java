@@ -1,6 +1,6 @@
 package com.GiangTruong.LearningLMS.center.controller;
 
-import com.GiangTruong.LearningLMS.center.dto.ClassStudentReq;
+import com.GiangTruong.LearningLMS.center.dto.ClassStudent.ClassStudentReq;
 import com.GiangTruong.LearningLMS.center.dto.ClassStudentRes;
 import com.GiangTruong.LearningLMS.center.payload.ApiResponse;
 import com.GiangTruong.LearningLMS.center.service.ClassStudent.ClassStudentService;

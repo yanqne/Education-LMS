@@ -1,4 +1,4 @@
-package com.GiangTruong.LearningLMS.center.dto;
+package com.GiangTruong.LearningLMS.center.dto.ClassStudent;
 
 import lombok.Data;
 

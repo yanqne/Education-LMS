@@ -1,6 +1,6 @@
 package com.GiangTruong.LearningLMS.center.service.ClassStudent;
 
-import com.GiangTruong.LearningLMS.center.dto.ClassStudentReq;
+import com.GiangTruong.LearningLMS.center.dto.ClassStudent.ClassStudentReq;
 import com.GiangTruong.LearningLMS.center.dto.ClassStudentRes;
 import com.GiangTruong.LearningLMS.center.entity.ClassEntity;
 import com.GiangTruong.LearningLMS.center.entity.ClassStudent;

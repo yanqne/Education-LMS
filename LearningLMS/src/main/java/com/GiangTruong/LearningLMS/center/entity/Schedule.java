@@ -1,4 +1,5 @@
 package com.GiangTruong.LearningLMS.center.entity;
+import com.GiangTruong.LearningLMS.center.Enum.DayOfWeek;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +20,11 @@ public class Schedule {
     @JoinColumn(name = "class_id")
     private ClassEntity classEntity;
 
-    private String dayOfWeek;
+    @Enumerated(EnumType.STRING)
+    private DayOfWeek dayOfWeek;
 
     private LocalTime startTime;
 
     private LocalTime endTime;
+
 }
