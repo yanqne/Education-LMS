@@ -2,7 +2,7 @@ package com.GiangTruong.LearningLMS.center.dto.Schedule;
 
 import lombok.Data;
 
-import java.time.DayOfWeek;
+import com.GiangTruong.LearningLMS.center.Enum.DayOfWeek;
 import java.time.LocalTime;
 
 @Data
