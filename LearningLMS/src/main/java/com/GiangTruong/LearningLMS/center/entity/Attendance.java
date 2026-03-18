@@ -1,5 +1,6 @@
 package com.GiangTruong.LearningLMS.center.entity;
 
+import com.GiangTruong.LearningLMS.center.Enum.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,5 +27,5 @@ public class Attendance {
 
     private LocalDate date;
 
-    private String status;
+    private Status status;
 }
