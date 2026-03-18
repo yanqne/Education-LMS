@@ -11,4 +11,5 @@ public interface ScheduleService {
     List<ScheduleRes> getSchedulesByClass(Long classId);
 
     void deleteSchedule(Long id);
+
 }

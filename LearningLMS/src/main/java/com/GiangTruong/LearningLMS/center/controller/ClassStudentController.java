@@ -2,6 +2,7 @@ package com.GiangTruong.LearningLMS.center.controller;
 
 import com.GiangTruong.LearningLMS.center.dto.ClassStudent.ClassStudentReq;
 import com.GiangTruong.LearningLMS.center.dto.ClassStudentRes;
+import com.GiangTruong.LearningLMS.center.dto.EnrollReq;
 import com.GiangTruong.LearningLMS.center.payload.ApiResponse;
 import com.GiangTruong.LearningLMS.center.service.ClassStudent.ClassStudentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -63,6 +64,17 @@ public class ClassStudentController {
                 true,
                 "Get classes successfully",
                 classes
+        );
+    }
+    @PostMapping("/classes/{classId}/enroll")
+    public ApiResponse<ClassStudentRes> enroll(
+            @PathVariable Long classId,
+            @RequestBody EnrollReq request) {
+        ClassStudentRes Response = classStudentService.enroll(classId, request);
+        return new ApiResponse<>(
+                true,
+                "Student registered successfully",
+                Response
         );
     }
 }

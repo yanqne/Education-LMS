@@ -2,6 +2,7 @@ package com.GiangTruong.LearningLMS.center.service.ClassStudent;
 
 import com.GiangTruong.LearningLMS.center.dto.ClassStudent.ClassStudentReq;
 import com.GiangTruong.LearningLMS.center.dto.ClassStudentRes;
+import com.GiangTruong.LearningLMS.center.dto.EnrollReq;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface ClassStudentService {
     List<ClassStudentRes> getStudentsByClass(Long classId);
 
     List<ClassStudentRes> getClassesByStudent(Long studentId);
+
+    ClassStudentRes enroll(Long classId, EnrollReq request);
 }
