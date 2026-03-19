@@ -5,6 +5,7 @@ import com.GiangTruong.LearningLMS.center.dto.Attendance.AttendanceRes;
 import com.GiangTruong.LearningLMS.center.dto.Attendance.BulkAttendanceReq;
 import com.GiangTruong.LearningLMS.center.payload.ApiResponse;
 import com.GiangTruong.LearningLMS.center.service.Attendance.AttendanceService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/attendance")
 @RequiredArgsConstructor
+@Tag(name = "attendance API", description = "APIs for managing attendances")
 public class AttendanceController {
 
     private final AttendanceService attendanceService;

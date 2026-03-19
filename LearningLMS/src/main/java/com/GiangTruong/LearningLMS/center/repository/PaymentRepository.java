@@ -9,6 +9,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     List<Payment> findByStudentId(Long studentId);
 
-    List<Payment> findByClassEntityId(Long classId);
+    List<Payment> findByStudentIdAndClassEntityId(Long studentId, Long classId);
 
 }

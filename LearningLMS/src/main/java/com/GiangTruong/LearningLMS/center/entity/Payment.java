@@ -1,5 +1,6 @@
 package com.GiangTruong.LearningLMS.center.entity;
 
+import com.GiangTruong.LearningLMS.center.Enum.Method;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,11 +27,11 @@ public class Payment {
     @JoinColumn(name = "class_id")
     private ClassEntity classEntity;
 
-    private BigDecimal amount;
+    private Double amount;
 
     private LocalDate paymentDate;
 
-    private String method;
+    private Method method;
 
     @Column(columnDefinition = "TEXT")
     private String note;
