@@ -9,4 +9,8 @@ public interface AnnouncementRepository extends JpaRepository<Announcement, Long
 
     List<Announcement> findByClassEntityId(Long classId);
 
+    List<Announcement> findByClassEntityIsNull();
+
+    List<Announcement> findAllByOrderByCreatedAtDesc();
+
 }

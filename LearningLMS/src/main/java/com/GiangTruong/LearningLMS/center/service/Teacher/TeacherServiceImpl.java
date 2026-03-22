@@ -1,5 +1,6 @@
 package com.GiangTruong.LearningLMS.center.service.Teacher;
 
+import com.GiangTruong.LearningLMS.center.config.NotFoundException;
 import com.GiangTruong.LearningLMS.center.dto.TeacherDTO;
 import com.GiangTruong.LearningLMS.center.entity.Teacher;
 import com.GiangTruong.LearningLMS.center.mapper.TeacherMapper;
@@ -31,7 +32,7 @@ public class TeacherServiceImpl implements TeacherService {
     public TeacherDTO getTeacherById(Long id) {
 
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Teacher not found"));
+                .orElseThrow(() -> new NotFoundException("Teacher not found"));
 
         return TeacherMapper.toDTO(teacher);
     }
@@ -50,7 +51,7 @@ public class TeacherServiceImpl implements TeacherService {
     public TeacherDTO updateTeacher(Long id, TeacherDTO teacherDTO) {
 
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Teacher not found"));
+                .orElseThrow(() -> new NotFoundException("Teacher not found"));
 
         teacher.setName(teacherDTO.getName());
         teacher.setPhone(teacherDTO.getPhone());

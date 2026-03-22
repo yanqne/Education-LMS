@@ -1,5 +1,7 @@
 package com.GiangTruong.LearningLMS.center.service.Attendance;
 
+import com.GiangTruong.LearningLMS.center.config.BadRequestException;
+import com.GiangTruong.LearningLMS.center.config.NotFoundException;
 import com.GiangTruong.LearningLMS.center.dto.Attendance.AttendanceReq;
 import com.GiangTruong.LearningLMS.center.dto.Attendance.AttendanceRes;
 import com.GiangTruong.LearningLMS.center.dto.Attendance.BulkAttendanceReq;
@@ -32,16 +34,16 @@ public class AttendanceServiceImpl implements AttendanceService {
     public AttendanceRes create(AttendanceReq req) {
 
         ClassEntity classEntity = classRepository.findById(req.getClassId())
-                .orElseThrow(() -> new RuntimeException("Class not found"));
+                .orElseThrow(() -> new NotFoundException("Class not found"));
 
         Student student = studentRepository.findById(req.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new NotFoundException("Student not found"));
 
         boolean enrolled = classStudentRepository
                 .existsByClassEntityIdAndStudentId(req.getClassId(), req.getStudentId());
 
         if (!enrolled) {
-            throw new RuntimeException("Student not enrolled in class");
+            throw new BadRequestException("Student not enrolled in class");
         }
 
         boolean exists = attendanceRepository
@@ -50,7 +52,7 @@ public class AttendanceServiceImpl implements AttendanceService {
                 );
 
         if (exists) {
-            throw new RuntimeException("Attendance already taken");
+            throw new BadRequestException("Attendance already taken");
         }
 
         Attendance entity = attendanceMapper.toEntity(req);
@@ -64,14 +66,14 @@ public class AttendanceServiceImpl implements AttendanceService {
     public List<AttendanceRes> bulkCreate(BulkAttendanceReq req) {
 
         ClassEntity classEntity = classRepository.findById(req.getClassId())
-                .orElseThrow(() -> new RuntimeException("Class not found"));
+                .orElseThrow(() -> new NotFoundException("Class not found"));
 
         List<AttendanceRes> responses = new ArrayList<>();
 
         for (BulkAttendanceReq.StudentAttendance item : req.getAttendances()) {
 
             Student student = studentRepository.findById(item.getStudentId())
-                    .orElseThrow(() -> new RuntimeException("Student not found"));
+                    .orElseThrow(() -> new NotFoundException("Student not found"));
 
             boolean enrolled = classStudentRepository
                     .existsByClassEntityIdAndStudentId(req.getClassId(), item.getStudentId());

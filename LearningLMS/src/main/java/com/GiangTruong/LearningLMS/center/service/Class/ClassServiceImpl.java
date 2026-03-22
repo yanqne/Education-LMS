@@ -1,5 +1,6 @@
 package com.GiangTruong.LearningLMS.center.service.Class;
 
+import com.GiangTruong.LearningLMS.center.config.NotFoundException;
 import com.GiangTruong.LearningLMS.center.dto.ClassDTO;
 import com.GiangTruong.LearningLMS.center.entity.ClassEntity;
 import com.GiangTruong.LearningLMS.center.entity.Course;
@@ -47,7 +48,7 @@ public class ClassServiceImpl implements ClassService {
     public ClassDTO getClassById(Long id) {
 
         ClassEntity entity = classRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Class not found"));
+                .orElseThrow(() -> new NotFoundException("Class not found"));
 
         return ClassMapper.toDTO(entity);
     }
@@ -65,13 +66,13 @@ public class ClassServiceImpl implements ClassService {
     public ClassDTO createClass(ClassDTO dto) {
 
         Course course = courseRepository.findById(dto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new NotFoundException("Course not found"));
 
         Teacher teacher = teacherRepository.findById(dto.getTeacherId())
-                .orElseThrow(() -> new RuntimeException("Teacher not found"));
+                .orElseThrow(() -> new NotFoundException("Teacher not found"));
 
         Room room = roomRepository.findById(dto.getRoomId())
-                .orElseThrow(() -> new RuntimeException("Room not found"));
+                .orElseThrow(() -> new NotFoundException("Room not found"));
 
         ClassEntity entity = new ClassEntity();
 
@@ -94,7 +95,7 @@ public class ClassServiceImpl implements ClassService {
     public ClassDTO updateClass(Long id, ClassDTO dto) {
 
         ClassEntity entity = classRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Class not found"));
+                .orElseThrow(() -> new NotFoundException("Class not found"));
 
         entity.setName(dto.getName());
         entity.setStartDate(dto.getStartDate());

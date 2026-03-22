@@ -1,5 +1,6 @@
 package com.GiangTruong.LearningLMS.center.service.Room;
 
+import com.GiangTruong.LearningLMS.center.config.NotFoundException;
 import com.GiangTruong.LearningLMS.center.dto.RoomDTO;
 import com.GiangTruong.LearningLMS.center.entity.Room;
 import com.GiangTruong.LearningLMS.center.mapper.RoomMapper;
@@ -31,7 +32,7 @@ public class RoomServiceImpl implements RoomService {
     public RoomDTO getRoomById(Long id) {
 
         Room room = roomRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Room not found"));
+                .orElseThrow(() -> new NotFoundException("Room not found"));
 
         return RoomMapper.toDTO(room);
     }
@@ -50,7 +51,7 @@ public class RoomServiceImpl implements RoomService {
     public RoomDTO updateRoom(Long id, RoomDTO roomDTO) {
 
         Room room = roomRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Room not found"));
+                .orElseThrow(() -> new NotFoundException("Room not found"));
 
         room.setName(roomDTO.getName());
         room.setCapacity(roomDTO.getCapacity());

@@ -1,6 +1,8 @@
 package com.GiangTruong.LearningLMS.center.service.Payment;
 
 import com.GiangTruong.LearningLMS.center.Enum.PaymentStatus;
+import com.GiangTruong.LearningLMS.center.config.BadRequestException;
+import com.GiangTruong.LearningLMS.center.config.NotFoundException;
 import com.GiangTruong.LearningLMS.center.dto.Payment.PaymentReq;
 import com.GiangTruong.LearningLMS.center.dto.Payment.PaymentRes;
 import com.GiangTruong.LearningLMS.center.dto.Payment.PaymentSummaryRes;
@@ -33,18 +35,18 @@ public class PaymentServiceImpl implements PaymentService {
 
         // check student
         Student student = studentRepository.findById(req.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new NotFoundException("Student not found"));
 
         // check class
         ClassEntity classEntity = classRepository.findById(req.getClassId())
-                .orElseThrow(() -> new RuntimeException("Class not found"));
+                .orElseThrow(() -> new NotFoundException("Class not found"));
 
         // ❌ chưa enroll
         boolean enrolled = classStudentRepository
                 .existsByClassEntityIdAndStudentId(req.getClassId(), req.getStudentId());
 
         if (!enrolled) {
-            throw new RuntimeException("Student not enrolled in class");
+            throw new BadRequestException("Student not enrolled in class");
         }
         double totalPaid = paymentRepository.findByStudentIdAndClassEntityId(student.getId(), classEntity.getId())
                 .stream()
@@ -53,9 +55,9 @@ public class PaymentServiceImpl implements PaymentService {
         double courseFee = classEntity.getCourse().getFee().doubleValue();
         //Chặn đóng quá tiền
         if(totalPaid + req.getAmount() > courseFee){
-            throw new RuntimeException("Payment exceeds course fee");
+            throw new BadRequestException("Payment exceeds course fee");
         }
-        
+
         Payment entity = paymentMapper.toEntity(req);
         entity.setStudent(student);
         entity.setClassEntity(classEntity);
@@ -92,18 +94,18 @@ public class PaymentServiceImpl implements PaymentService {
 
         // check student
         Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new NotFoundException("Student not found"));
 
         // check class
         ClassEntity classEntity = classRepository.findById(classId)
-                .orElseThrow(() -> new RuntimeException("Class not found"));
+                .orElseThrow(() -> new NotFoundException("Class not found"));
 
         // check enroll
         boolean enrolled = classStudentRepository
                 .existsByClassEntityIdAndStudentId(classId, studentId);
 
         if (!enrolled) {
-            throw new RuntimeException("Student not enrolled in class");
+            throw new BadRequestException("Student not enrolled in class");
         }
 
         // 🔥 tổng tiền đã đóng

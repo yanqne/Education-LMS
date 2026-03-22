@@ -1,5 +1,6 @@
 package com.GiangTruong.LearningLMS.center.service.Schedule;
 
+import com.GiangTruong.LearningLMS.center.config.NotFoundException;
 import com.GiangTruong.LearningLMS.center.dto.Schedule.ScheduleReq;
 import com.GiangTruong.LearningLMS.center.dto.Schedule.ScheduleRes;
 import com.GiangTruong.LearningLMS.center.entity.ClassEntity;
@@ -25,7 +26,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     public ScheduleRes createSchedule(ScheduleReq request) {
 
         ClassEntity classEntity = classRepository.findById(request.getClassId())
-                .orElseThrow(() -> new RuntimeException("Class not found"));
+                .orElseThrow(() -> new NotFoundException("Class not found"));
 
         Schedule schedule = new Schedule();
 

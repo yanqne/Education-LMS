@@ -1,5 +1,7 @@
 package com.GiangTruong.LearningLMS.center.service.ClassStudent;
 
+import com.GiangTruong.LearningLMS.center.config.BadRequestException;
+import com.GiangTruong.LearningLMS.center.config.NotFoundException;
 import com.GiangTruong.LearningLMS.center.dto.ClassStudent.ClassStudentReq;
 import com.GiangTruong.LearningLMS.center.dto.ClassStudentRes;
 import com.GiangTruong.LearningLMS.center.dto.EnrollReq;
@@ -42,16 +44,16 @@ public class ClassStudentServiceImpl implements ClassStudentService {
     public ClassStudentRes registerStudent(ClassStudentReq request) {
 
         ClassEntity classEntity = classRepository.findById(request.getClassId())
-                .orElseThrow(() -> new RuntimeException("Class not found"));
+                .orElseThrow(() -> new NotFoundException("Class not found"));
 
         Student student = studentRepository.findById(request.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new NotFoundException("Student not found"));
 
         // check student already in class
         classStudentRepository
                 .findByClassEntityIdAndStudentId(request.getClassId(), request.getStudentId())
                 .ifPresent(cs -> {
-                    throw new RuntimeException("Student already in class");
+                    throw new BadRequestException("Student already in class");
                 });
 
         ClassStudent entity = new ClassStudent();
@@ -103,7 +105,7 @@ public class ClassStudentServiceImpl implements ClassStudentService {
                         newSch.getStartTime(), newSch.getEndTime(),
                         curSch.getStartTime(), curSch.getEndTime()
                 )) {
-                    throw new RuntimeException("Schedule conflict detected");
+                    throw new BadRequestException("Schedule conflict detected");
                 }
             }
         }
@@ -111,24 +113,24 @@ public class ClassStudentServiceImpl implements ClassStudentService {
     public ClassStudentRes enroll(Long classId, EnrollReq request) {
 
         ClassEntity clazz = classRepository.findById(classId)
-                .orElseThrow(() -> new RuntimeException("Class not found"));
+                .orElseThrow(() -> new NotFoundException("Class not found"));
 
         Student student = studentRepository.findById(request.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new NotFoundException("Student not found"));
 
         // 1. Check đã đăng ký chưa
         boolean exists = classStudentRepository
                 .existsByClassEntityIdAndStudentId(classId, student.getId());
 
         if (exists) {
-            throw new RuntimeException("Student already enrolled");
+            throw new BadRequestException("Student already enrolled");
         }
 
         // 2. Check full
         long count = classStudentRepository.countByClassEntityId(classId);
 
         if (count >= clazz.getMaxStudents()) {
-            throw new RuntimeException("Class is full");
+            throw new BadRequestException("Class is full");
         }
 
         checkScheduleConflict(student.getId(), classId);

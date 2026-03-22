@@ -1,5 +1,6 @@
 package com.GiangTruong.LearningLMS.center.service.Course;
 
+import com.GiangTruong.LearningLMS.center.config.NotFoundException;
 import com.GiangTruong.LearningLMS.center.dto.CourseDTO;
 import com.GiangTruong.LearningLMS.center.entity.Course;
 import com.GiangTruong.LearningLMS.center.mapper.CourseMapper;
@@ -31,7 +32,7 @@ public class CourseServiceImpl implements CourseService {
     public CourseDTO getCourseById(Long id) {
 
         Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new NotFoundException("Course not found"));
 
         return CourseMapper.toDTO(course);
     }
@@ -50,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
     public CourseDTO updateCourse(Long id, CourseDTO courseDTO) {
 
         Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new NotFoundException("Course not found"));
 
         course.setName(courseDTO.getName());
         course.setDescription(courseDTO.getDescription());
